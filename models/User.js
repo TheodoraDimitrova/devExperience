@@ -7,9 +7,8 @@ const UserSchema = new Schema({
   name: { type: String, default: true },
   email: { type: String, default: true },
   password: { type: String, default: true },
-  avatar: { type: String, default: true },
+  avatar: { type: String },
   date: { type: Date, default: Date.now }
 });
 
-
-module.exports = User = mongoose.model('users', UserSchema)
+module.exports = User = mongoose.model("users", UserSchema);
