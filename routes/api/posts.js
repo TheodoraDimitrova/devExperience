@@ -176,7 +176,7 @@ router.post('/comment/:id',
         };
 
         // Add to comments array
-        post.comments.unshift(newComment);
+        post.comments.unshift(newComment);//add at begging of array
 
         // Save
         post.save().then(post => res.json(post));
