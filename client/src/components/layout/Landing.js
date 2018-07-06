@@ -11,7 +11,7 @@ class Landing extends Component {
                 <h1 className="display-3 mb-4">Developers Experience</h1>
                 <p className="lead">
                   {" "}
-                  Create a developer profile/portfolio, share posts and get help
+                  Create your profile/portfolio, share posts and get help
                   from other developers
                 </p>
                 <hr />
