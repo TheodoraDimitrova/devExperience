@@ -254,8 +254,7 @@ router.delete('/experience/:exp_id',
 // @route   DELETE api/profile/education/:edu_id
 // @desc    Delete education from profile
 // @access  Private
-router.delete(
-  '/education/:edu_id',
+router.delete('/education/:edu_id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
@@ -278,8 +277,7 @@ router.delete(
 // @route   DELETE api/profile
 // @desc    Delete user and profile
 // @access  Private
-router.delete(
-  '/',
+router.delete('/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Profile.findOneAndRemove({ user: req.user.id }).then(() => {
