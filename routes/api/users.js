@@ -20,7 +20,7 @@ const User = require("../../models/User");
 // access  Public
 router.get("/test", (req, res) => res.json({ msg: "users works" }));
 
-// route   GET api/users/register
+// route   POST api/users/register
 // desc    register user
 // access  Public
 router.post("/register", (req, res) => {
@@ -43,7 +43,8 @@ router.post("/register", (req, res) => {
         name: req.body.name,
         email: req.body.email,
         avatar,
-        password: req.body.password
+        password: req.body.password,
+        date:Date.now()
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
