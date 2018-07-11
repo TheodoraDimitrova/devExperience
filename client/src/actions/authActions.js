@@ -1,6 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
-import { GET_ERRORS ,SET_CURRENT_USER} from "./types";
+import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 import jwt_decode from "jwt-decode";
 
 //register
@@ -46,4 +46,14 @@ export const setCurrentUser = decoded => {
     type: SET_CURRENT_USER,
     playload: decoded
   };
+};
+
+//log user out
+export const logoutUser = () => dispatch => {
+  //remove token from local storage
+  localStorage.removeItem("jwtToken");
+  //Remove the suth herader from
+  setAuthToken(false);
+  //set curren user to {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({}));
 };
