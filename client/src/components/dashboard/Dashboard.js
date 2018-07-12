@@ -6,8 +6,8 @@ import { getCurrentProfile } from "../../actions/profileActions";
 
 class Dashboard extends Component {
   componentDidMount() {
-    if(!this.props.auth.isAuthenticated){
-      this.props.history.push('/login')
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/login");
     }
     this.props.getCurrentProfile();
   }
@@ -18,20 +18,24 @@ class Dashboard extends Component {
 
     let dashboardContent;
 
-    // Check if logged in user has profile data
-    if (profile === null) {
+    //Check if logged in user has profile data
+    if (profile === null || profile === {}) {
       dashboardContent = <h4>Please login or register</h4>;
     } else {
-      //User is logged in but has no profile
-      dashboardContent = (
-        <div>
-          <p className="lead text-muted">Welcome {user.name}</p>
-          <p>You have not yet setup a profile, please add some info</p>
-          <Link to="/create-profile" className="btn btn-lg btn-info">
-            Create Profile
-          </Link>
-        </div>
-      );
+      if (Object.keys(profile).length > 0) {
+        dashboardContent = <h4>TODO: DISPLAY PROFILE</h4>;
+      } else {
+        //User is logged in but has no profile
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">Welcome {user.name}</p>
+            <p>You have not yet setup a profile, please add some info</p>
+            <Link to="/create-profile" className="btn btn-lg btn-info">
+              Create Profile
+            </Link>
+          </div>
+        );
+      }
     }
 
     return (

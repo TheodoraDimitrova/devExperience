@@ -33,8 +33,8 @@ class CreateProfile extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentDidMount() {
-    if(!this.props.auth.isAuthenticated){
-      this.props.history.push('/login')
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/login");
     }
   }
 
@@ -64,6 +64,7 @@ class CreateProfile extends Component {
     };
 
     this.props.createProfile(profileData, this.props.history);
+    
   }
 
   onChange(e) {
@@ -71,7 +72,8 @@ class CreateProfile extends Component {
   }
 
   render() {
-    const { errors, displaySocialInputs } = this.state;
+    const { errors } = this.state;
+    const { displaySocialInputs } = this.state;
 
     let socialInputs;
 
@@ -155,7 +157,7 @@ class CreateProfile extends Component {
                   value={this.state.handle}
                   onChange={this.onChange}
                   error={errors.handle}
-                  info="A unique handle for your profile URL. Your full name, company name, nickname"
+                  info="A unique handle for your profile URL. Your full name or nickname"
                 />
                 <SelectListGroup
                   placeholder="Status"
@@ -188,7 +190,7 @@ class CreateProfile extends Component {
                   value={this.state.location}
                   onChange={this.onChange}
                   error={errors.location}
-                  info="City or city & state suggested (eg. Boston, MA)"
+                  info="City"
                 />
                 <TextFieldGroup
                   placeholder="* Skills"
@@ -196,8 +198,8 @@ class CreateProfile extends Component {
                   value={this.state.skills}
                   onChange={this.onChange}
                   error={errors.skills}
-                  info="Please use comma separated values (eg.
-                    HTML,CSS,JavaScript,PHP"
+                  info="Please use comma to separate your skills (eg.
+                    HTML,CSS,JavaScript,PHP)"
                 />
                 <TextFieldGroup
                   placeholder="Github Username"
@@ -231,7 +233,11 @@ class CreateProfile extends Component {
                   <span className="text-muted">Optional</span>
                 </div>
                 {socialInputs}
-                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-info btn-block mt-4"
+                />
               </form>
             </div>
           </div>
