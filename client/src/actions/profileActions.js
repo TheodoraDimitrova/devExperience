@@ -1,6 +1,12 @@
 import axios from "axios";
 
-import { GET_PROFILE,GET_PROFILES, CLEAR_CURRENT_PROFILE, GET_ERRORS ,SET_CURRENT_USER } from "./types";
+import {
+  GET_PROFILE,
+  GET_PROFILES,
+  CLEAR_CURRENT_PROFILE,
+  GET_ERRORS,
+  SET_CURRENT_USER
+} from "./types";
 
 // Get current profile
 export const getCurrentProfile = () => dispatch => {
@@ -39,9 +45,9 @@ export const clearCurrentProfile = () => {
 };
 
 export const deleteAccount = () => dispatch => {
-  if (window.confirm('Are you sure? This can NOT be restored!')) {
+  if (window.confirm("Are you sure? This can NOT be restored!")) {
     axios
-      .delete('/api/profile')
+      .delete("/api/profile")
       .then(res =>
         dispatch({
           type: SET_CURRENT_USER,
@@ -59,8 +65,8 @@ export const deleteAccount = () => dispatch => {
 
 export const addExperience = (expData, history) => dispatch => {
   axios
-    .post('/api/profile/experience', expData)
-    .then(res => history.push('/dashboard'))
+    .post("/api/profile/experience", expData)
+    .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -70,8 +76,8 @@ export const addExperience = (expData, history) => dispatch => {
 };
 export const addEducation = (eduData, history) => dispatch => {
   axios
-    .post('/api/profile/education', eduData)
-    .then(res => history.push('/dashboard'))
+    .post("/api/profile/education", eduData)
+    .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -115,9 +121,8 @@ export const deleteEducation = id => dispatch => {
 };
 
 export const getProfiles = () => dispatch => {
-  
   axios
-    .get('/api/profile/all')
+    .get("/api/profile/all")
     .then(res =>
       dispatch({
         type: GET_PROFILES,
@@ -131,7 +136,6 @@ export const getProfiles = () => dispatch => {
       })
     );
 };
-
 
 export const getProfileByHandle = handle => dispatch => {
   axios
