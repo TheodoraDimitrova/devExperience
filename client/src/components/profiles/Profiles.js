@@ -12,6 +12,7 @@ class Profiles extends Component {
   render() {
     const { profiles } = this.props.profile;
     let profileItems;
+    
 
     if (profiles === null ) {
       profileItems =   <p className="lead text-center">
@@ -19,8 +20,11 @@ class Profiles extends Component {
     </p>
     } else {
       if (profiles.length > 0) {
+        profileItems = profiles.map(profile => (
+          <ProfileItem key={profile._id} profile={profile} />
+        ));
         
-        profileItems=<h1>Profiles here</h1>
+        //profileItems=<h1>Profiles here</h1>
       } else {
         profileItems = <h4>No profiles found...</h4>;
       }
