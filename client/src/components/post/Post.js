@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import PostItem from '../posts/PostItem';
-import CommentForm from './CommentForm';
-import CommentsBoard from './CommentsBoard';
-import { getPost } from '../../actions/postActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import PostItem from "../posts/PostItem";
+import CommentForm from "./CommentForm";
+import CommentsBoard from "./CommentsBoard";
+import { getPost } from "../../actions/postActions";
 
 class Post extends Component {
   componentDidMount() {
@@ -16,8 +16,8 @@ class Post extends Component {
     const { post } = this.props.post;
     let postContent;
 
-    if (post === null ||  Object.keys(post).length === 0) {
-      postContent = <h1>Loading....</h1>
+    if (post === null || Object.keys(post).length === 0) {
+      postContent = <h1>Loading....</h1>;
     } else {
       postContent = (
         <div>
@@ -54,4 +54,7 @@ const mapStateToProps = state => ({
   post: state.post
 });
 
-export default connect(mapStateToProps, { getPost })(Post);
+export default connect(
+  mapStateToProps,
+  { getPost }
+)(Post);
