@@ -16,7 +16,7 @@ class Profiles extends Component {
 
     if (profiles === null ) {
       profileItems =   <p className="lead text-center">
-      Loading
+      Loading...
     </p>
     } else {
       if (profiles.length > 0) {
