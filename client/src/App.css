@@ -1,10 +1,22 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 img {
   width: 100%;
 }
 
 .landing {
   position: relative;
-  background: url('./img/dev2.jpg') no-repeat;
+  background: url("./img/dev2.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
