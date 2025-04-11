@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import ProfileHeader from './ProfileHeader';
-import ProfileAbout from './ProfileAbout';
-import ProfileDetails from './ProfileDetails';
-import ProfileGit from './ProfileGit';
+import ProfileHeader from "./ProfileHeader";
+import ProfileAbout from "./ProfileAbout";
+import ProfileDetails from "./ProfileDetails";
+import ProfileGit from "./ProfileGit";
 
-import { getProfileByHandle } from '../../actions/profileActions';
+import { getProfileByHandle } from "../../actions/profileActions";
 
 class Profile extends Component {
   componentDidMount() {
@@ -19,16 +19,16 @@ class Profile extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.profile.profile === null) {
-      this.props.history.push('/not-found');
+      this.props.history.push("/not-found");
     }
   }
 
   render() {
-    const { profile} = this.props.profile;
+    const { profile } = this.props.profile;
     let profileContent;
 
     if (profile === null) {
-      profileContent = <h1>Loading.....</h1>;
+      profileContent = <h1>Can not find profile</h1>;
     } else {
       profileContent = (
         <div>
@@ -67,11 +67,11 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { getProfileByHandle })(Profile);
