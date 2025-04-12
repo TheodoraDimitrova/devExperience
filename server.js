@@ -38,6 +38,7 @@ app.use("/api/posts", posts);
 
 //server in production
 if (process.env.NODE_ENV === "production") {
+  console.log("production");
   //Static folder
   app.use(express.static("client/build"));
 
