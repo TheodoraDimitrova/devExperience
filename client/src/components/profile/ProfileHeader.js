@@ -4,7 +4,6 @@ import isEmpty from "../../validation/is-empty";
 class ProfileHeader extends Component {
   render() {
     const { profile, loading } = this.props;
-
     if (loading || !profile || !profile.user) {
       return <h1>Loading profile header...</h1>;
     }
