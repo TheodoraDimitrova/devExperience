@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "MSocialNetwork",
   "main": "server.js",
-  "engines": {
-    "node": ">=16",
-    "npm": ">=8"
-  },
   "scripts": {
     "client-install": "npm install --prefix client",
     "server": "node server.js",
