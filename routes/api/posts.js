@@ -78,8 +78,13 @@ router.delete("/:id",
               .json({ notauthorized: "User not authorized" });
           }
 
-          // Delete
-          post.remove().then(() => res.json({ success: true }));
+          // Mongoose 8+: doc.remove() removed — use deleteOne()
+          post
+            .deleteOne()
+            .then(() => res.json({ success: true }))
+            .catch(err =>
+              res.status(500).json({ deletefailed: "Failed to delete post" })
+            );
         })
         .catch(err => res.status(404).json({ postnotfound: "No post found" }));
     });

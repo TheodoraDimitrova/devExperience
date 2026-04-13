@@ -23,7 +23,7 @@ class Navbar extends Component {
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/postsBoard">
-          Create Post
+            Discussion
           </Link>
         </li>
         <li className="nav-item">

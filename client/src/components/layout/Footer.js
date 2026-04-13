@@ -1,11 +1,16 @@
 import React from "react";
 
-export default () => {
-  const currentYear = new Date().getFullYear();
+const Footer = () => {
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-dark text-white mt-auto p-4 text-center">
-      <div>Copyright &copy; {currentYear} Developers Experience</div>
+    <footer className="bg-dark text-white py-2 px-3 p-md-4 text-center app-footer">
+      <div>
+        Copyright &copy;{" "}
+        <time dateTime={String(year)}>{year}</time> Developers Experience
+      </div>
     </footer>
   );
 };
+
+export default Footer;

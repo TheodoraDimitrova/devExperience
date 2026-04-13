@@ -2,72 +2,103 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentProfile ,deleteAccount } from "../../actions/profileActions";
-import ProfileActions from './ProfileActions';
-import Experience from './Experience';
-import Education from './Education';
+import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
+import ProfileActions from "./ProfileActions";
+import Experience from "./Experience";
+import Education from "./Education";
+import PageLoader from "../common/PageLoader";
 
 class Dashboard extends Component {
   componentDidMount() {
-    // if (this.props.auth.isAuthenticated===false) {
-    //   this.props.history.push("/login");
-    // }
     this.props.getCurrentProfile();
   }
-  
-  onDeleteClick(e) {
-    this.props.deleteAccount();
+
+  onDeleteClick() {
+    if (
+      window.confirm(
+        "This will permanently delete your account and profile. Continue?"
+      )
+    ) {
+      this.props.deleteAccount();
+    }
   }
+
   render() {
     const { user } = this.props.auth;
     const { profile } = this.props.profile;
 
+    const hasProfile =
+      profile &&
+      typeof profile === "object" &&
+      Object.keys(profile).length > 0;
+
     let dashboardContent;
 
-    //Check if logged in user has profile data
-    if (profile === null || profile === {}) {
-      dashboardContent = <h4>Please login or register</h4>;
-    } else {
-      if (Object.keys(profile).length > 0) {
-        dashboardContent = (
-          <div>
-            <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
-            </p>
-            <ProfileActions />
-            <Experience experience={profile.experience} />
-            <Education education={profile.education} />
-            <div style={{ marginBottom: '60px' }} />
+    if (profile === null) {
+      dashboardContent = (
+        <PageLoader message="Loading your dashboard…" />
+      );
+    } else if (hasProfile) {
+      dashboardContent = (
+        <div className="dashboard-main">
+          <div className="card border-0 shadow-sm mb-4 dashboard-welcome-card">
+            <div className="card-body p-3 p-md-4">
+              <p className="lead text-muted mb-0 dashboard-welcome-text">
+                Welcome,{" "}
+                <Link
+                  to={`/profile/${profile.handle}`}
+                  className="font-weight-bold text-info"
+                >
+                  {user.name}
+                </Link>
+              </p>
+            </div>
+          </div>
+          <ProfileActions />
+          <Experience experience={profile.experience} />
+          <Education education={profile.education} />
+          <div className="dashboard-danger-zone mt-4 pt-3 border-top">
             <button
+              type="button"
               onClick={this.onDeleteClick.bind(this)}
-              className="btn btn-danger"
+              className="btn btn-outline-danger dashboard-delete-btn"
             >
-              Delete My Account
+              <i className="fas fa-trash-alt mr-2" aria-hidden="true" />
+              Delete my account
             </button>
           </div>
-        );
-      } else {
-        //User is logged in but has no profile
-        dashboardContent = (
-          <div>
-            <p className="lead text-muted">Welcome {user.name}</p>
-            <p>You have not yet setup a profile, please add some info</p>
-            <Link to="/create-profile" className="btn btn-lg btn-info">
-              Create Profile
+        </div>
+      );
+    } else {
+      dashboardContent = (
+        <div className="card border-0 shadow-sm dashboard-empty-card">
+          <div className="card-body p-4 p-md-5 text-center">
+            <i
+              className="fas fa-id-card fa-3x text-muted mb-3 d-block"
+              aria-hidden="true"
+            />
+            <p className="lead text-muted mb-2">Welcome, {user.name}</p>
+            <p className="text-muted mb-4">
+              You haven&apos;t created a profile yet. Add a few details to get
+              started.
+            </p>
+            <Link
+              to="/create-profile"
+              className="btn btn-info btn-lg dashboard-cta-btn"
+            >
+              Create profile
             </Link>
           </div>
-        );
-      }
+        </div>
+      );
     }
 
     return (
-      <div className="dashboard">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
-              {dashboardContent}
-            </div>
+      <div className="dashboard-page py-3 py-md-4">
+        <div className="row mx-0">
+          <div className="col-12 px-0 px-sm-1">
+            <h1 className="dashboard-page-title mb-3 mb-md-4">Dashboard</h1>
+            {dashboardContent}
           </div>
         </div>
       </div>
@@ -77,17 +108,17 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  deleteAccount:PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile,deleteAccount }
-)(Dashboard);
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  deleteAccount,
+})(Dashboard);

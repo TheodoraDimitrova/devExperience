@@ -46,21 +46,25 @@ class PostForm extends Component {
 
     return (
       <div className="post-form mb-3">
-        <div className="card card-info">
-          <div className="card-header bg-info text-white">Say Somthing...</div>
-          <div className="card-body">
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <TextAreaFieldGroup
-                  placeholder="Create a post"
-                  name="text"
-                  value={this.state.text}
-                  onChange={this.onChange}
-                  error={errors.text}
-                />
-              </div>
-              <button type="submit" className="btn btn-dark">
-                Submit
+        <div className="card border-0 shadow-sm post-form-card">
+          <div className="card-body p-3 p-md-4">
+            <div className="mb-3">
+              <h2 className="post-form-title mb-1">Start a post</h2>
+              <p className="text-muted small mb-0">
+                Share something useful with the DevExperience community.
+              </p>
+            </div>
+            <form noValidate onSubmit={this.onSubmit}>
+              <TextAreaFieldGroup
+                placeholder="What do you want to talk about?"
+                name="text"
+                value={this.state.text}
+                onChange={this.onChange}
+                error={errors.text}
+                controlSize="sm"
+              />
+              <button type="submit" className="btn btn-info post-form-submit">
+                Publish post
               </button>
             </form>
           </div>

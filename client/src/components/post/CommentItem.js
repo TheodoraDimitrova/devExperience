@@ -10,32 +10,38 @@ class CommentItem extends Component {
 
   render() {
     const { comment, postId, auth } = this.props;
+    const isOwn = String(comment.user) === String(auth.user.id);
 
     return (
-      <div className="card card-body mb-3">
-        <div className="row">
-          <div className="col-md-2">
-            <a href="profile.html">
+      <div className="card border-0 shadow-sm post-card comment-card mb-3">
+        <div className="card-body p-3">
+          <div className="row align-items-start">
+            <div className="col-12 col-md-2 mb-3 mb-md-0 text-center">
               <img
-                className="rounded-circle d-none d-md-block"
+                className="rounded-circle post-card-avatar"
                 src={comment.avatar}
-                alt=""
+                alt={comment.name || ""}
               />
-            </a>
-            <br />
-            <p className="text-center">{comment.name}</p>
-          </div>
-          <div className="col-md-10">
-            <p className="lead">{comment.text}</p>
-            {comment.user === auth.user.id ? (
-              <button
-                onClick={this.onDeleteClick.bind(this, postId, comment._id)}
-                type="button"
-                className="btn btn-danger mr-1"
-              >
-                <i className="fas fa-times" />
-              </button>
-            ) : null}
+              <p className="post-card-author mb-0 mt-2">{comment.name}</p>
+            </div>
+            <div className="col-12 col-md-10">
+              <div className="comment-card-content d-flex justify-content-between align-items-start">
+                <p className="post-card-text mb-0 flex-grow-1 pr-2 pr-md-3">
+                  {comment.text}
+                </p>
+                {isOwn ? (
+                  <button
+                    onClick={this.onDeleteClick.bind(this, postId, comment._id)}
+                    type="button"
+                    className="btn btn-link btn-sm text-muted comment-delete-btn p-0 flex-shrink-0"
+                    title="Delete comment"
+                    aria-label="Delete comment"
+                  >
+                    <i className="fas fa-trash-alt" aria-hidden="true" />
+                  </button>
+                ) : null}
+              </div>
+            </div>
           </div>
         </div>
       </div>

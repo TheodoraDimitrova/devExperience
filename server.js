@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -10,11 +11,18 @@ const posts = require("./routes/api/posts");
 
 const app = express();
 //body-parser middleware
-app.use(bodyParser.urlencoded({ extended: false })); //??
-app.use(bodyParser.json()); //??
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //db config
-const db = require("./config/keys").mongoURI;
+const keys = require("./config/keys");
+const db = keys.mongoURI;
+if (!db) {
+  console.error(
+    "Missing MONGO_URI. Copy .env.example to .env and set your MongoDB Atlas connection string.",
+  );
+  process.exit(1);
+}
 mongoose
   .connect(db)
   .then(() => {

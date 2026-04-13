@@ -4,93 +4,93 @@ import isEmpty from "../../validation/is-empty";
 class ProfileHeader extends Component {
   render() {
     const { profile, loading } = this.props;
-    if (loading || !profile || !profile.user) {
-      return <h1>Loading profile header...</h1>;
+    if (loading || !profile) {
+      return null;
     }
 
+    const displayName =
+      profile.user && profile.user.name ? profile.user.name : profile.handle;
+    const initial = displayName.charAt(0).toUpperCase();
+    const hasAvatar = profile.user && profile.user.avatar;
+
+    const social = (href, iconClass, label) =>
+      !isEmpty(href) ? (
+        <a
+          href={href}
+          className="profile-social-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+        >
+          <i className={iconClass} aria-hidden="true" />
+        </a>
+      ) : null;
+
     return (
-      <div className="row">
-        <div className="col-md-12">
-          <div className="card card-body bg-info text-white mb-3">
-            <div className="row">
-              <div className="col-4 col-md-3 m-auto">
+      <div className="profile-header-card card border-0 shadow-sm mb-4 text-white overflow-hidden">
+        <div className="card-body p-3 p-sm-4 p-md-5">
+          <div className="row align-items-center">
+            <div className="col-12 col-md-auto text-center text-md-left mb-3 mb-md-0">
+              {hasAvatar ? (
                 <img
-                  className="rounded-circle"
-                  src={profile.user && profile.user.avatar}
-                  alt={profile.user && profile.user.name}
+                  className="profile-detail-avatar rounded-circle mx-auto d-block mx-md-0"
+                  src={profile.user.avatar}
+                  alt={displayName}
                 />
-              </div>
+              ) : (
+                <div
+                  className="profile-detail-avatar profile-detail-avatar-placeholder rounded-circle d-flex align-items-center justify-content-center mx-auto mx-md-0"
+                  aria-hidden="true"
+                >
+                  {initial}
+                </div>
+              )}
             </div>
-            <div className="text-center">
-              <h1 className="display-4 text-center">{profile.user.name}</h1>
-              <p className="lead text-center">
-                {profile.status}{" "}
-                {isEmpty(profile.company) ? null : (
-                  <span>at {profile.company}</span>
+            <div className="col-12 col-md text-center text-md-left">
+              <h1 className="profile-detail-name font-weight-bold mb-2">{displayName}</h1>
+              <p className="mb-2 profile-header-lead">
+                <span className="font-weight-normal">{profile.status}</span>
+                {!isEmpty(profile.company) && (
+                  <span className="font-weight-light">
+                    {" "}
+                    <span className="opacity-75">·</span> {profile.company}
+                  </span>
                 )}
               </p>
-              {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
-              <p>
-                {isEmpty(profile.website) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.website}
-                    target="_blank"
-                  >
-                    <i className="fas fa-globe fa-2x" />
-                  </a>
+              {!isEmpty(profile.location) && (
+                <p className="mb-3 small profile-header-meta">
+                  <i className="fas fa-map-marker-alt mr-2" aria-hidden="true" />
+                  {profile.location}
+                </p>
+              )}
+              <div className="profile-social-row d-flex flex-wrap justify-content-center justify-content-md-start">
+                {social(profile.website, "fas fa-globe", "Website")}
+                {social(
+                  profile.social && profile.social.twitter,
+                  "fab fa-twitter",
+                  "Twitter"
                 )}
-
-                {isEmpty(profile.social && profile.social.twitter) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.social.twitter}
-                    target="_blank"
-                  >
-                    <i className="fab fa-twitter fa-2x" />
-                  </a>
+                {social(
+                  profile.social && profile.social.facebook,
+                  "fab fa-facebook-f",
+                  "Facebook"
                 )}
-
-                {isEmpty(profile.social && profile.social.facebook) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.social.facebook}
-                    target="_blank"
-                  >
-                    <i className="fab fa-facebook fa-2x" />
-                  </a>
+                {social(
+                  profile.social && profile.social.linkedin,
+                  "fab fa-linkedin-in",
+                  "LinkedIn"
                 )}
-
-                {isEmpty(profile.social && profile.social.linkedin) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.social.linkedin}
-                    target="_blank"
-                  >
-                    <i className="fab fa-linkedin fa-2x" />
-                  </a>
+                {social(
+                  profile.social && profile.social.youtube,
+                  "fab fa-youtube",
+                  "YouTube"
                 )}
-
-                {isEmpty(profile.social && profile.social.youtube) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.social.youtube}
-                    target="_blank"
-                  >
-                    <i className="fab fa-youtube fa-2x" />
-                  </a>
+                {social(
+                  profile.social && profile.social.instagram,
+                  "fab fa-instagram",
+                  "Instagram"
                 )}
-
-                {isEmpty(profile.social && profile.social.instagram) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.social.instagram}
-                    target="_blank"
-                  >
-                    <i className="fab fa-instagram fa-2x" />
-                  </a>
-                )}
-              </p>
+              </div>
             </div>
           </div>
         </div>

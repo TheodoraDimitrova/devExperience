@@ -6,6 +6,7 @@ import PostItem from "../posts/PostItem";
 import CommentForm from "./CommentForm";
 import CommentsBoard from "./CommentsBoard";
 import { getPost } from "../../actions/postActions";
+import PageLoader from "../common/PageLoader";
 
 class Post extends Component {
   componentDidMount() {
@@ -17,27 +18,33 @@ class Post extends Component {
     let postContent;
 
     if (post === null || Object.keys(post).length === 0) {
-      postContent = <h1>Loading....</h1>;
+      postContent = <PageLoader message="Loading post…" />;
     } else {
+      const comments = Array.isArray(post.comments) ? post.comments : [];
       postContent = (
-        <div>
+        <div className="post-detail-thread">
           <PostItem post={post} showActions={false} />
+          <h2 className="post-form-title mb-1 mt-4">Discussion</h2>
+          <p className="text-muted small mb-3">
+            Reply to this post and follow the thread below.
+          </p>
           <CommentForm postId={post._id} />
-          <CommentsBoard postId={post._id} comments={post.comments} />
+          <CommentsBoard postId={post._id} comments={comments} />
         </div>
       );
     }
 
     return (
-      <div className="post">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <Link to="/postsBoard" className="btn btn-light mb-3">
-                Back To Post Board
-              </Link>
-              {postContent}
-            </div>
+      <div className="posts-page post-detail-page py-3 py-md-4">
+        <div className="row justify-content-center mx-0">
+          <div className="col-12 col-lg-10 col-xl-8 px-0 px-sm-1">
+            <Link
+              to="/postsBoard"
+              className="btn btn-outline-secondary btn-sm mb-3 d-inline-block"
+            >
+              ← Back to discussion
+            </Link>
+            {postContent}
           </div>
         </div>
       </div>

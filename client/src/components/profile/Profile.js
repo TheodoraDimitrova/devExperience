@@ -9,11 +9,19 @@ import ProfileDetails from "./ProfileDetails";
 import ProfileGit from "./ProfileGit";
 
 import { getProfileByHandle } from "../../actions/profileActions";
+import PageLoader from "../common/PageLoader";
 
 class Profile extends Component {
   componentDidMount() {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const h = this.props.match.params.handle;
+    if (h && h !== prevProps.match.params.handle) {
+      this.props.getProfileByHandle(h);
     }
   }
 
@@ -28,17 +36,18 @@ class Profile extends Component {
     let profileContent;
 
     if (profile === null) {
-      profileContent = <h1>Can not find profile</h1>;
+      profileContent = <PageLoader message="Loading profile…" />;
     } else {
       profileContent = (
-        <div>
-          <div className="row">
-            <div className="col-md-6">
-              <Link to="/profiles" className="btn btn-light mb-3 float-left">
-                Back To Profiles
-              </Link>
-            </div>
-            <div className="col-md-6" />
+        <div className="profile-detail-inner">
+          <div className="mb-4">
+            <Link
+              to="/profiles"
+              className="btn btn-sm btn-outline-secondary profile-back-link"
+            >
+              <i className="fas fa-arrow-left mr-2" aria-hidden="true" />
+              All profiles
+            </Link>
           </div>
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
@@ -54,11 +63,9 @@ class Profile extends Component {
     }
 
     return (
-      <div className="profile">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">{profileContent}</div>
-          </div>
+      <div className="profile-detail-page py-3 py-md-4">
+        <div className="row justify-content-center mx-0">
+          <div className="col-12 col-lg-10 px-0 px-sm-1">{profileContent}</div>
         </div>
       </div>
     );

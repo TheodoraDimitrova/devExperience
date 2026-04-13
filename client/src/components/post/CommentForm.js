@@ -47,23 +47,20 @@ class CommentForm extends Component {
 
     return (
       <div className="post-form mb-3">
-        <div className="card card-info">
-          <div className="card-header bg-info text-white">
-            Make a comment...
-          </div>
-          <div className="card-body">
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <TextAreaFieldGroup
-                  placeholder="Reply to post"
-                  name="text"
-                  value={this.state.text}
-                  onChange={this.onChange}
-                  error={errors.text}
-                />
-              </div>
-              <button type="submit" className="btn btn-dark">
-                Submit
+        <div className="card border-0 shadow-sm post-form-card">
+          <div className="card-body p-3 p-md-4">
+            <h3 className="post-comment-form-title mb-3">Add a comment</h3>
+            <form noValidate onSubmit={this.onSubmit}>
+              <TextAreaFieldGroup
+                placeholder="Write your reply…"
+                name="text"
+                value={this.state.text}
+                onChange={this.onChange}
+                error={errors.text}
+                controlSize="sm"
+              />
+              <button type="submit" className="btn btn-info post-form-submit">
+                Post comment
               </button>
             </form>
           </div>
@@ -74,7 +71,7 @@ class CommentForm extends Component {
 }
 
 CommentForm.propTypes = {
-  addPost: PropTypes.func.isRequired,
+  addComment: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired

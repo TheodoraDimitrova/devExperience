@@ -16,20 +16,26 @@ class Landing extends Component {
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
             <div className="row">
-              <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">Developers Experience</h1>
-                <p className="lead">
-                  {" "}
+              <div className="col-12 text-center px-2">
+                <h1 className="landing-title mb-3 mb-md-4">
+                  Developers Experience
+                </h1>
+                <p className="landing-lead text-light mb-4">
                   Create your profile/portfolio, share posts and get help from
                   other developers
                 </p>
-                <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
-                  Sign Up
-                </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
-                  Login
-                </Link>
+                <hr className="mb-4" />
+                <div className="landing-cta-row d-flex flex-column flex-sm-row justify-content-center align-items-center">
+                  <Link
+                    to="/register"
+                    className="btn btn-lg btn-info mb-2 mb-sm-0 mr-sm-2"
+                  >
+                    Sign Up
+                  </Link>
+                  <Link to="/login" className="btn btn-lg btn-light">
+                    Login
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
