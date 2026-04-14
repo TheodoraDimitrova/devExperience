@@ -231,6 +231,14 @@ img {
   color: #bbb !important;
 }
 
+/* Global: remove Bootstrap focus border */
+.form-control:focus,
+.custom-select:focus {
+  border-color: #ced4da !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 /* —— Profiles list (/profiles) —— */
 .profiles-page {
   background: linear-gradient(180deg, #f8f9fb 0%, #fff 48%);
@@ -256,7 +264,9 @@ img {
 }
 
 .profile-item-card {
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
   border-radius: 0.5rem;
 }
 
@@ -352,16 +362,27 @@ img {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  transition: background 0.2s ease, transform 0.15s ease;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--de-accent);
+  border: 1px solid rgba(23, 162, 184, 0.35);
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .profile-social-btn:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: var(--de-accent);
   color: #fff;
   text-decoration: none;
   transform: scale(1.06);
+  box-shadow: 0 0 0 0.15rem rgba(23, 162, 184, 0.22);
+}
+
+.profile-social-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.28);
 }
 
 .profile-section-card {
@@ -591,7 +612,9 @@ img {
   min-height: 2.75rem;
   font-weight: 500;
   border-radius: 0.4rem;
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
 }
 
 @media (hover: hover) {
@@ -833,4 +856,34 @@ img {
 
 .profile-form-page .form-text {
   font-size: 0.75rem;
+}
+
+.profile-form-page .input-group-text {
+  background-color: rgba(23, 162, 184, 0.08);
+  border-color: rgba(23, 162, 184, 0.3);
+}
+
+.profile-form-page .input-group-text i {
+  color: var(--de-accent);
+}
+
+.profile-form-page .input-group .form-control:focus {
+  border-color: #ced4da;
+  box-shadow: none;
+}
+
+.profile-form-page .input-group:focus-within .input-group-text {
+  border-color: rgba(23, 162, 184, 0.3);
+}
+
+/* Profile email visibility checkbox uses same accent as primary button */
+#showEmailPublicly-edit:checked ~ .custom-control-label::before,
+#showEmailPublicly-create:checked ~ .custom-control-label::before {
+  background-color: var(--de-accent);
+  border-color: var(--de-accent);
+}
+
+#showEmailPublicly-edit:focus ~ .custom-control-label::before,
+#showEmailPublicly-create:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25);
 }

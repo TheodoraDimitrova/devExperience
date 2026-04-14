@@ -72,7 +72,8 @@ class AddExperience extends Component {
                   to="/dashboard"
                   className="btn btn-outline-secondary btn-sm mb-3"
                 >
-                  ← Back to dashboard
+                  <i className="fas fa-arrow-left mr-2" aria-hidden="true" />
+                  Back to dashboard
                 </Link>
                 <h1 className="profile-form-title text-center mb-2">
                   Add experience

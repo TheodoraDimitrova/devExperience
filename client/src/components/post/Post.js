@@ -42,7 +42,8 @@ class Post extends Component {
               to="/postsBoard"
               className="btn btn-outline-secondary btn-sm mb-3 d-inline-block"
             >
-              ← Back to discussion
+              <i className="fas fa-arrow-left mr-2" aria-hidden="true" />
+              Back to discussion
             </Link>
             {postContent}
           </div>

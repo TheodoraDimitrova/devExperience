@@ -72,7 +72,8 @@ class AddEducation extends Component {
                   to="/dashboard"
                   className="btn btn-outline-secondary btn-sm mb-3"
                 >
-                  ← Back to dashboard
+                  <i className="fas fa-arrow-left mr-2" aria-hidden="true" />
+                  Back to dashboard
                 </Link>
                 <h1 className="profile-form-title text-center mb-2">
                   Add education
@@ -149,7 +150,7 @@ class AddEducation extends Component {
                     value={this.state.description}
                     onChange={this.onChange}
                     error={errors.description}
-                    info="Tell us about the program you were in"
+                    info="Share key details about your studies, coursework, or academic focus"
                     controlSize="sm"
                   />
                   <button

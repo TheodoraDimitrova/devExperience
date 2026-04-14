@@ -43,7 +43,7 @@ class Profile extends Component {
           <div className="mb-4">
             <Link
               to="/profiles"
-              className="btn btn-sm btn-outline-secondary profile-back-link"
+              className="btn btn-sm btn-outline-secondary"
             >
               <i className="fas fa-arrow-left mr-2" aria-hidden="true" />
               All profiles

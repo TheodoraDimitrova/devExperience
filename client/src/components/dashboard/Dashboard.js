@@ -26,6 +26,8 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
     const { profile } = this.props.profile;
+    const accountEmail =
+      profile && profile.user && profile.user.email ? profile.user.email : "";
 
     const hasProfile =
       profile &&
@@ -52,6 +54,12 @@ class Dashboard extends Component {
                   {user.name}
                 </Link>
               </p>
+              {accountEmail ? (
+                <p className="small text-muted mb-0 mt-1">
+                  Signed in with{" "}
+                  <span className="font-weight-medium">{accountEmail}</span>
+                </p>
+              ) : null}
             </div>
           </div>
           <ProfileActions />

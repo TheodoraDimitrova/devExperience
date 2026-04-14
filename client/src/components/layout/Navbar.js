@@ -34,6 +34,7 @@ class Navbar extends Component {
               alt={user.name}
               title="You must have gravatar connected to your email to display image"
             />
+            <span className="d-none d-md-inline mr-2">{user.name}</span>
             Logout
           </a>
         </li>
