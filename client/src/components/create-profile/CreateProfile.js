@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import TextFieldGroup from "../common/TextFieldGroup";
@@ -26,6 +27,7 @@ class CreateProfile extends Component {
       linkedin: "",
       youtube: "",
       instagram: "",
+      showEmailPublicly: false,
       errors: {}
     };
 
@@ -60,7 +62,8 @@ class CreateProfile extends Component {
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
       youtube: this.state.youtube,
-      instagram: this.state.instagram
+      instagram: this.state.instagram,
+      showEmailPublicly: this.state.showEmailPublicly
     };
 
     this.props.createProfile(profileData, this.props.history);
@@ -68,7 +71,9 @@ class CreateProfile extends Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    this.setState({ [e.target.name]: value });
   }
 
   render() {
@@ -87,6 +92,7 @@ class CreateProfile extends Component {
             value={this.state.twitter}
             onChange={this.onChange}
             error={errors.twitter}
+            controlSize="sm"
           />
 
           <InputGroup
@@ -96,6 +102,7 @@ class CreateProfile extends Component {
             value={this.state.facebook}
             onChange={this.onChange}
             error={errors.facebook}
+            controlSize="sm"
           />
 
           <InputGroup
@@ -105,6 +112,7 @@ class CreateProfile extends Component {
             value={this.state.linkedin}
             onChange={this.onChange}
             error={errors.linkedin}
+            controlSize="sm"
           />
 
           <InputGroup
@@ -114,6 +122,7 @@ class CreateProfile extends Component {
             value={this.state.youtube}
             onChange={this.onChange}
             error={errors.youtube}
+            controlSize="sm"
           />
 
           <InputGroup
@@ -123,6 +132,7 @@ class CreateProfile extends Component {
             value={this.state.instagram}
             onChange={this.onChange}
             error={errors.instagram}
+            controlSize="sm"
           />
         </div>
       );
@@ -141,104 +151,140 @@ class CreateProfile extends Component {
     ];
 
     return (
-      <div className="create-profile">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create Your Profile</h1>
-              <p className="lead text-center">
-                Let's get some information to make your profile
-              </p>
-              <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="* Profile Handle"
-                  name="handle"
-                  value={this.state.handle}
-                  onChange={this.onChange}
-                  error={errors.handle}
-                  info="A unique handle for your profile URL. Your full name or nickname"
-                />
-                <SelectListGroup
-                  placeholder="Status"
-                  name="status"
-                  value={this.state.status}
-                  onChange={this.onChange}
-                  options={options}
-                  error={errors.status}
-                  info="Give us an idea of where you are at in your career"
-                />
-                <TextFieldGroup
-                  placeholder="Company"
-                  name="company"
-                  value={this.state.company}
-                  onChange={this.onChange}
-                  error={errors.company}
-                  info="Could be your own company or one you work for"
-                />
-                <TextFieldGroup
-                  placeholder="Website"
-                  name="website"
-                  value={this.state.website}
-                  onChange={this.onChange}
-                  error={errors.website}
-                  info="Could be your own website or a company one"
-                />
-                <TextFieldGroup
-                  placeholder="Location"
-                  name="location"
-                  value={this.state.location}
-                  onChange={this.onChange}
-                  error={errors.location}
-                  info="City"
-                />
-                <TextFieldGroup
-                  placeholder="* Skills"
-                  name="skills"
-                  value={this.state.skills}
-                  onChange={this.onChange}
-                  error={errors.skills}
-                  info="Please use comma to separate your skills (eg.
-                    HTML,CSS,JavaScript,PHP)"
-                />
-                <TextFieldGroup
-                  placeholder="Github Username"
-                  name="githubusername"
-                  value={this.state.githubusername}
-                  onChange={this.onChange}
-                  error={errors.githubusername}
-                  info="If you want your latest repos and a Github link, include your username"
-                />
-                <TextAreaFieldGroup
-                  placeholder="Short Bio"
-                  name="bio"
-                  value={this.state.bio}
-                  onChange={this.onChange}
-                  error={errors.bio}
-                  info="Tell us a little about yourself"
-                />
+      <div className="profile-form-page py-3 py-md-4 create-profile">
+        <div className="row justify-content-center mx-0">
+          <div className="col-12 col-lg-10 col-xl-8 px-0 px-sm-1">
+            <div className="card border-0 shadow-sm profile-form-card">
+              <div className="card-body p-3 p-md-4">
+                <Link
+                  to="/dashboard"
+                  className="btn btn-outline-secondary btn-sm mb-3"
+                >
+                  ← Back to dashboard
+                </Link>
+                <h1 className="profile-form-title text-center mb-2">
+                  Create your profile
+                </h1>
+                <p className="text-muted text-center small mb-3">
+                  Add your public profile details. Fields marked * are required.
+                </p>
+                <form noValidate onSubmit={this.onSubmit}>
+                  <TextFieldGroup
+                    placeholder="* Profile Handle"
+                    name="handle"
+                    value={this.state.handle}
+                    onChange={this.onChange}
+                    error={errors.handle}
+                    info="A unique handle for your profile URL. Your full name or nickname"
+                    controlSize="sm"
+                  />
+                  <SelectListGroup
+                    placeholder="Status"
+                    name="status"
+                    value={this.state.status}
+                    onChange={this.onChange}
+                    options={options}
+                    error={errors.status}
+                    info="Give us an idea of where you are at in your career"
+                    controlSize="sm"
+                  />
+                  <TextFieldGroup
+                    placeholder="Company"
+                    name="company"
+                    value={this.state.company}
+                    onChange={this.onChange}
+                    error={errors.company}
+                    info="Could be your own company or one you work for"
+                    controlSize="sm"
+                  />
+                  <TextFieldGroup
+                    placeholder="Website"
+                    name="website"
+                    value={this.state.website}
+                    onChange={this.onChange}
+                    error={errors.website}
+                    info="Could be your own website or a company one"
+                    controlSize="sm"
+                  />
+                  <TextFieldGroup
+                    placeholder="Location"
+                    name="location"
+                    value={this.state.location}
+                    onChange={this.onChange}
+                    error={errors.location}
+                    info="City"
+                    controlSize="sm"
+                  />
+                  <TextFieldGroup
+                    placeholder="* Skills"
+                    name="skills"
+                    value={this.state.skills}
+                    onChange={this.onChange}
+                    error={errors.skills}
+                    info="Comma-separated (e.g. HTML, CSS, JavaScript, PHP)"
+                    controlSize="sm"
+                  />
+                  <TextFieldGroup
+                    placeholder="Github Username"
+                    name="githubusername"
+                    value={this.state.githubusername}
+                    onChange={this.onChange}
+                    error={errors.githubusername}
+                    info="If you want your latest repos and a Github link, include your username"
+                    controlSize="sm"
+                  />
+                  <TextAreaFieldGroup
+                    placeholder="Short Bio"
+                    name="bio"
+                    value={this.state.bio}
+                    onChange={this.onChange}
+                    error={errors.bio}
+                    info="Tell us a little about yourself"
+                    controlSize="sm"
+                  />
 
-                <div className="mb-3">
+                  <div className="custom-control custom-checkbox mb-3">
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="showEmailPublicly-create"
+                      name="showEmailPublicly"
+                      checked={this.state.showEmailPublicly}
+                      onChange={this.onChange}
+                    />
+                    <label
+                      className="custom-control-label small"
+                      htmlFor="showEmailPublicly-create"
+                    >
+                      Show my email publicly on my profile
+                    </label>
+                  </div>
+
+                  <div className="d-flex flex-wrap align-items-center mb-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        this.setState(prevState => ({
+                          displaySocialInputs: !prevState.displaySocialInputs
+                        }));
+                      }}
+                      className="btn btn-outline-secondary btn-sm mr-2 mb-1 mb-md-0"
+                    >
+                      {displaySocialInputs
+                        ? "Hide social links"
+                        : "Add social network links"}
+                    </button>
+                    <span className="text-muted small">Optional</span>
+                  </div>
+                  {socialInputs}
                   <button
-                    type="button"
-                    onClick={() => {
-                      this.setState(prevState => ({
-                        displaySocialInputs: !prevState.displaySocialInputs
-                      }));
-                    }}
-                    className="btn btn-light"
+                    type="submit"
+                    className="btn btn-info btn-block profile-form-submit mt-3"
                   >
-                    Add Social Network Links
+                    Create profile
                   </button>
-                  <span className="text-muted">Optional</span>
-                </div>
-                {socialInputs}
-                <input
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-info btn-block mt-4"
-                />
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>

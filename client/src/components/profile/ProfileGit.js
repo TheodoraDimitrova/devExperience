@@ -12,21 +12,39 @@ class ProfileGit extends Component {
   }
 
   componentDidMount() {
-    const { username } = this.props;
-    const { count } = this.state;
+    this.loadRepos(this.props.username);
+  }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.username !== this.props.username) {
+      this.loadRepos(this.props.username);
+    }
+  }
+
+  loadRepos(username) {
+    const { count } = this.state;
     const url = `https://api.github.com/users/${encodeURIComponent(
       username
-    )}/repos?per_page=${count}&sort=created&direction=asc`;
+    )}/repos?per_page=${count}&sort=created&direction=desc`;
 
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        this.setState({
-          repos: Array.isArray(data) ? data : [],
-        });
+        if (!Array.isArray(data)) {
+          this.setState({ repos: [] });
+          return;
+        }
+        const repos = data
+          .slice()
+          .sort(
+            (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+        this.setState({ repos });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        this.setState({ repos: [] });
+      });
   }
 
   render() {

@@ -673,6 +673,10 @@ img {
   font-size: 0.95rem;
 }
 
+.auth-password-toggle {
+  min-width: 2.4rem;
+}
+
 .auth-page .form-text {
   font-size: 0.75rem;
 }

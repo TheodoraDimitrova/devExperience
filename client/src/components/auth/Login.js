@@ -11,10 +11,12 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      showPassword: false,
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.togglePasswordVisibility = this.togglePasswordVisibility.bind(this);
   }
 
   componentDidMount() {
@@ -47,8 +49,12 @@ class Login extends Component {
     this.props.loginUser(userData);
   }
 
+  togglePasswordVisibility() {
+    this.setState(prevState => ({ showPassword: !prevState.showPassword }));
+  }
+
   render() {
-    const { errors } = this.state;
+    const { errors, showPassword } = this.state;
     return (
       <div className="auth-page py-3 py-md-5">
         <div className="row justify-content-center mx-0">
@@ -71,17 +77,43 @@ class Login extends Component {
                     autoComplete="email"
                     controlSize="sm"
                   />
-                  <TextFieldGroup
-                    label="Password"
-                    placeholder="Password"
-                    name="password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                    error={errors.password}
-                    autoComplete="current-password"
-                    controlSize="sm"
-                  />
+                  <div className="form-group mb-2">
+                    <label
+                      htmlFor="password"
+                      className="d-block mb-1 font-weight-bold text-secondary small"
+                    >
+                      Password
+                    </label>
+                    <div className="input-group input-group-sm">
+                      <input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                        placeholder="Password"
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                        autoComplete="current-password"
+                      />
+                      <div className="input-group-append">
+                        <button
+                          type="button"
+                          className="btn btn-outline-secondary auth-password-toggle"
+                          onClick={this.togglePasswordVisibility}
+                          aria-label={showPassword ? "Hide password" : "Show password"}
+                          title={showPassword ? "Hide password" : "Show password"}
+                        >
+                          <i
+                            className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </div>
+                      {errors.password && (
+                        <div className="invalid-feedback d-block">{errors.password}</div>
+                      )}
+                    </div>
+                  </div>
                   <button
                     type="submit"
                     className="btn btn-info btn-block mt-2 auth-submit-btn"

@@ -1,4 +1,5 @@
 import axios from "axios";
+import setAuthToken from "../utils/setAuthToken";
 
 import {
   GET_PROFILE,
@@ -65,12 +66,17 @@ export const deleteAccount = () => (dispatch) => {
   if (window.confirm("Are you sure? This can NOT be restored!")) {
     axios
       .delete("/api/profile")
-      .then((res) =>
+      .then(() => {
+        // Fully sign out after account deletion.
+        localStorage.removeItem("jwtToken");
+        setAuthToken(false);
+        dispatch({ type: CLEAR_CURRENT_PROFILE });
         dispatch({
           type: SET_CURRENT_USER,
           payload: {},
-        })
-      )
+        });
+        window.location.href = "/login";
+      })
       .catch((err) =>
         dispatch({
           type: GET_ERRORS,

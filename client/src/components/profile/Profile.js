@@ -52,6 +52,7 @@ class Profile extends Component {
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
           <ProfileDetails
+            profile={profile}
             education={profile.education}
             experience={profile.experience}
           />

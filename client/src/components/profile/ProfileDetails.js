@@ -4,9 +4,16 @@ import Moment from "react-moment";
 
 class ProfileDetails extends Component {
   render() {
-    const { experience, education } = this.props;
+    const { profile, experience, education } = this.props;
     const expList = Array.isArray(experience) ? experience : [];
     const eduList = Array.isArray(education) ? education : [];
+    const publicEmail =
+      profile &&
+      profile.showEmailPublicly &&
+      profile.user &&
+      profile.user.email
+        ? profile.user.email
+        : null;
 
     const expItems = expList.map((exp) => (
       <div key={exp._id} className="profile-timeline-card card border-0 shadow-sm mb-3">
@@ -74,6 +81,24 @@ class ProfileDetails extends Component {
 
     return (
       <div className="row">
+        {publicEmail ? (
+          <div className="col-12 mb-4">
+            <div className="card border-0 shadow-sm profile-timeline-card">
+              <div className="card-body p-3 p-md-4">
+                <h2 className="h6 font-weight-bold text-dark mb-2 profile-section-heading">
+                  Contact
+                </h2>
+                <a
+                  href={`mailto:${publicEmail}`}
+                  className="small text-info font-weight-bold"
+                >
+                  <i className="fas fa-envelope mr-2" aria-hidden="true" />
+                  {publicEmail}
+                </a>
+              </div>
+            </div>
+          </div>
+        ) : null}
         <div className="col-md-6 mb-4 mb-md-0">
           <h2 className="h5 font-weight-bold text-dark mb-3 profile-section-heading">
             Experience
@@ -92,6 +117,7 @@ class ProfileDetails extends Component {
 }
 
 ProfileDetails.propTypes = {
+  profile: PropTypes.object,
   experience: PropTypes.array,
   education: PropTypes.array,
   loading: PropTypes.bool,

@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, loginUser } from "./actions/authActions";
+import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
 
 import { Provider } from "react-redux";
@@ -38,10 +38,11 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   store.dispatch(setCurrentUser(decoded));
 
-  const currentTime = Date.now() / 100;
+  const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    store.dispatch(loginUser());
+    store.dispatch(logoutUser());
     store.dispatch(clearCurrentProfile());
+    window.location.href = "/login";
   }
 }
 

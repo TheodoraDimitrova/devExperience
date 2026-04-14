@@ -9,8 +9,8 @@ class ProfileHeader extends Component {
     }
 
     const displayName =
-      profile.user && profile.user.name ? profile.user.name : profile.handle;
-    const initial = displayName.charAt(0).toUpperCase();
+      (profile.user && profile.user.name) || profile.handle || "Developer";
+    const initial = displayName ? displayName.charAt(0).toUpperCase() : "D";
     const hasAvatar = profile.user && profile.user.avatar;
 
     const social = (href, iconClass, label) =>

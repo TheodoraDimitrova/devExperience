@@ -12,6 +12,7 @@ const ProfileSchema = new Schema({
   skills: {type: [String],required: true},
   bio: {type: String },
   githubusername: {type: String},
+  showEmailPublicly: { type: Boolean, default: false },
   experience:
    [
     {title: {type: String,required: true},

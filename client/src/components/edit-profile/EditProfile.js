@@ -27,6 +27,7 @@ class CreateProfile extends Component {
       linkedin: '',
       youtube: '',
       instagram: '',
+      showEmailPublicly: false,
       errors: {}
     };
 
@@ -62,6 +63,9 @@ class CreateProfile extends Component {
       profile.linkedin = !isEmpty(profile.social.linkedin) ? profile.social.linkedin : '';
       profile.youtube = !isEmpty(profile.social.youtube) ? profile.social.youtube : '';
       profile.instagram = !isEmpty(profile.social.instagram) ? profile.social.instagram : '';
+      profile.showEmailPublicly = !isEmpty(profile.showEmailPublicly)
+        ? profile.showEmailPublicly
+        : false;
 
       // Set component fields state
       this.setState({
@@ -77,7 +81,8 @@ class CreateProfile extends Component {
         facebook: profile.facebook,
         linkedin: profile.linkedin,
         youtube: profile.youtube,
-        instagram: profile.instagram
+        instagram: profile.instagram,
+        showEmailPublicly: profile.showEmailPublicly
       });
     }
   }
@@ -98,14 +103,17 @@ class CreateProfile extends Component {
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
       youtube: this.state.youtube,
-      instagram: this.state.instagram
+      instagram: this.state.instagram,
+      showEmailPublicly: this.state.showEmailPublicly
     };
 
     this.props.createProfile(profileData, this.props.history);
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    this.setState({ [e.target.name]: value });
   }
 
   render() {
@@ -274,6 +282,23 @@ class CreateProfile extends Component {
                     info="Tell us a little about yourself"
                     controlSize="sm"
                   />
+
+                  <div className="custom-control custom-checkbox mb-3">
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="showEmailPublicly-edit"
+                      name="showEmailPublicly"
+                      checked={this.state.showEmailPublicly}
+                      onChange={this.onChange}
+                    />
+                    <label
+                      className="custom-control-label small"
+                      htmlFor="showEmailPublicly-edit"
+                    >
+                      Show my email publicly on my profile
+                    </label>
+                  </div>
 
                   <div className="d-flex flex-wrap align-items-center mb-2">
                     <button
